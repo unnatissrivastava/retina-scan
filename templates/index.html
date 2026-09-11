@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetinaScan — Early Sight, Lasting Sight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- paper grain overlay -->
+    <div class="grain"></div>
+
+    <header class="nav">
+        <div class="nav-inner">
+            <span class="logo">Retina<em>Scan</em></span>
+            <span class="nav-tag">Explainable Retinal Intelligence</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Early detection,<br><em>lasting</em> sight.</h1>
+                <p class="lede">Upload a single retinal photograph. In moments, understand
+                    whether it shows signs of diabetic retinopathy — explained simply,
+                    so early action is never out of reach.</p>
+                <a href="#scan" class="btn-primary">Begin a scan</a>
+            </div>
+            <div class="hero-art">
+                <svg viewBox="0 0 320 320" class="eye-illustration" aria-hidden="true">
+                    <circle cx="160" cy="160" r="150" fill="#F2F0EB"/>
+                    <path d="M20 160 C 70 70, 250 70, 300 160 C 250 250, 70 250, 20 160 Z" fill="#FFFFFF" stroke="#E6E2DA" stroke-width="1.5"/>
+                    <circle cx="160" cy="160" r="62" fill="#8C9A84"/>
+                    <circle cx="160" cy="160" r="62" fill="none" stroke="#2D3A31" stroke-width="1" opacity="0.15"/>
+                    <circle cx="160" cy="160" r="30" fill="#2D3A31"/>
+                    <circle cx="145" cy="145" r="9" fill="#F9F8F4" opacity="0.85"/>
+                    <path d="M110 118 Q160 96 210 118" stroke="#C27B66" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55"/>
+                    <path d="M104 202 Q160 224 216 202" stroke="#C27B66" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- SCAN TOOL -->
+        <section class="scan" id="scan">
+            <div class="scan-card">
+                <h2>Analyze a retinal photograph</h2>
+                <p class="scan-sub">Clear, well-lit fundus images give the most reliable reading.</p>
+
+                <div class="arch-frame" id="upload-box">
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <div class="arch-inner" id="arch-inner">
+                        <svg class="upload-icon" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8C9A84" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M6 10l6-6 6 6"/><path d="M4 20h16"/></svg>
+                        <p id="upload-text">Click to upload an eye image</p>
+                    </div>
+                    <img id="preview" alt="">
+                </div>
+
+                <button id="analyzeBtn" class="btn-primary" disabled>Analyze image</button>
+
+                <div id="loading" class="loading">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="loading-text">Reading the image</span>
+                </div>
+
+                <div id="result" class="result-card"></div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="steps">
+            <h2 class="steps-title">How a scan works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <span class="step-num">01</span>
+                    <h3>Upload</h3>
+                    <p>Provide a retinal fundus photograph — from a clinic camera or a clear reference image.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">02</span>
+                    <h3>Analyze</h3>
+                    <p>The image is examined for the hallmarks of diabetic retinopathy — hemorrhages, microaneurysms, and exudates.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">03</span>
+                    <h3>Understand</h3>
+                    <p>Receive a plain-language result with a confidence level and the reasoning behind it.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>RetinaScan · Team Invaders · Smart India Hackathon 2026</p>
+    </footer>
+
+    <script>
+        const uploadBox = document.getElementById("upload-box");
+        const archInner = document.getElementById("arch-inner");
+        const fileInput = document.getElementById("fileInput");
+        const preview = document.getElementById("preview");
+        const analyzeBtn = document.getElementById("analyzeBtn");
+        const loading = document.getElementById("loading");
+        const resultBox = document.getElementById("result");
+        let selectedFile = null;
+
+        uploadBox.addEventListener("click", () => fileInput.click());
+
+        fileInput.addEventListener("change", () => {
+            selectedFile = fileInput.files[0];
+            if (selectedFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                    archInner.style.display = "none";
+                };
+                reader.readAsDataURL(selectedFile);
+                analyzeBtn.disabled = false;
+                resultBox.classList.remove("show");
+                resultBox.innerHTML = "";
+            }
+        });
+
+        analyzeBtn.addEventListener("click", async () => {
+            if (!selectedFile) return;
+
+            loading.classList.add("show");
+            resultBox.classList.remove("show");
+            analyzeBtn.disabled = true;
+
+            const formData = new FormData();
+            formData.append("image", selectedFile);
+
+            try {
+                const response = await fetch("/analyze", { method: "POST", body: formData });
+                const data = await response.json();
+
+                loading.classList.remove("show");
+                analyzeBtn.disabled = false;
+
+                resultBox.innerText = data.error ? "Error: " + data.error : data.result;
+                resultBox.classList.add("show");
+            } catch (err) {
+                loading.classList.remove("show");
+                analyzeBtn.disabled = false;
+                resultBox.innerText = "Something went wrong: " + err;
+                resultBox.classList.add("show");
+            }
+        });
+    </script>
+</body>
+</html>
