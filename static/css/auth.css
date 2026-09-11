@@ -1,0 +1,342 @@
+/* =========================================================
+   RETINASCAN AUTH PAGES
+   ========================================================= */
+
+.auth-shell {
+    min-height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    overflow: hidden;
+    background: #f5f9fc;
+}
+
+/* =========================
+   LEFT HERO
+   ========================= */
+
+.auth-hero {
+    min-width: 0;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0d3045 0%, #092538 55%, #061c2d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 42px;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative glow */
+.auth-hero::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: rgba(51, 183, 220, 0.08);
+    top: -180px;
+    left: -180px;
+}
+
+/* FORCE the eye to stay a circle */
+.auth-hero .iris-ring {
+    width: 170px !important;
+    height: 170px !important;
+    min-width: 170px !important;
+    min-height: 170px !important;
+    max-width: 170px !important;
+    max-height: 170px !important;
+
+    flex: 0 0 170px !important;
+    display: block;
+
+    border-radius: 50% !important;
+    position: relative;
+    z-index: 2;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #ffffff 0%,
+            #ffffff 10%,
+            #65c5df 11%,
+            #65c5df 23%,
+            #287f9e 24%,
+            #287f9e 43%,
+            #12516b 44%,
+            #12516b 63%,
+            #092d42 64%,
+            #092d42 100%
+        );
+
+    box-shadow:
+        0 0 0 10px rgba(102, 198, 222, 0.10),
+        0 0 0 22px rgba(102, 198, 222, 0.05),
+        0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* Remove old pseudo-element that was causing visual problems */
+.auth-hero .iris-ring::after {
+    display: none !important;
+}
+
+/* =========================
+   HERO TEXT
+   ========================= */
+
+.hero-copy {
+    width: 100%;
+    max-width: 390px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-copy .brand-name {
+    display: block;
+    color: #65c5df;
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.hero-copy h1 {
+    margin: 0 0 18px;
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.hero-copy p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+/* =========================
+   RIGHT LOGIN PANEL
+   ========================= */
+
+.auth-panel {
+    min-width: 0;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px;
+    background: #f5f9fc;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+
+    background: #ffffff;
+    border: 1px solid #dce8ef;
+    border-radius: 18px;
+
+    padding: 38px;
+
+    box-shadow:
+        0 12px 40px rgba(19, 55, 75, 0.08);
+}
+
+.auth-card h2 {
+    margin: 0;
+    color: #103d5a;
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.auth-sub {
+    margin: 8px 0 28px;
+    color: #668096;
+    font-size: 0.9rem;
+}
+
+.auth-sub a {
+    color: #1385b5;
+    font-weight: 600;
+}
+
+/* =========================
+   FORM
+   ========================= */
+
+.auth-card form {
+    display: block;
+}
+
+.auth-card label {
+    display: block;
+    margin: 0 0 7px;
+    color: #214d68;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"] {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 15px;
+
+    background: #ffffff;
+    border: 1px solid #d4e2ea;
+    border-radius: 10px;
+
+    color: #173f58;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+
+    margin-bottom: 18px;
+}
+
+.auth-card input::placeholder {
+    color: #9aafbd;
+}
+
+.auth-card input[type="text"]:focus,
+.auth-card input[type="email"]:focus,
+.auth-card input[type="password"]:focus {
+    outline: none;
+    border-color: #1590bd;
+    box-shadow: 0 0 0 3px rgba(21, 144, 189, 0.10);
+}
+
+/* =========================
+   REMEMBER / FORGOT
+   ========================= */
+
+.form-row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: -2px;
+}
+
+.checkbox-line {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin: 0 !important;
+
+    color: #668096 !important;
+    font-size: 0.84rem !important;
+    font-weight: 400 !important;
+    white-space: nowrap;
+}
+
+.checkbox-line input[type="checkbox"] {
+    width: 17px !important;
+    height: 17px !important;
+    margin: 0 !important;
+    accent-color: #1687b4;
+}
+
+.form-row-between .link-muted {
+    color: #1687b4;
+    font-size: 0.84rem;
+    white-space: nowrap;
+}
+
+/* =========================
+   LOGIN BUTTON
+   ========================= */
+
+.auth-card .btn-full {
+    width: 100%;
+    height: 52px;
+    margin-top: 22px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #1687b4;
+    color: #ffffff;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.auth-card .btn-full:hover {
+    background: #106f96;
+    transform: translateY(-1px);
+}
+
+/* =========================
+   FLASH MESSAGE
+   ========================= */
+
+.auth-card .flash {
+    margin-bottom: 18px;
+}
+
+/* =========================
+   DISCLAIMER
+   ========================= */
+
+.auth-card .disclaimer {
+    margin-top: 24px;
+    padding-top: 18px;
+
+    border-top: 1px dashed #dce6ec;
+
+    color: #8295a3;
+    font-size: 0.76rem;
+    line-height: 1.5;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 950px) {
+
+    .auth-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-hero {
+        display: none;
+    }
+
+    .auth-panel {
+        min-height: 100vh;
+        padding: 25px;
+    }
+
+    .auth-card {
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .auth-panel {
+        padding: 16px;
+    }
+
+    .auth-card {
+        padding: 28px 22px;
+        border-radius: 14px;
+    }
+
+    .form-row-between {
+        flex-wrap: wrap;
+    }
+}

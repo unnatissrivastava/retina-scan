@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — RetinaScan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body>
+<div class="auth-shell">
+
+  <section class="auth-hero">
+    <div class="iris-ring"></div>
+    <div class="hero-copy">
+      <span class="brand-name">RetinaScan</span>
+      <h1>See what your retina<br>is telling you.</h1>
+      <p>Upload a fundus image and get an instant screening read on hemorrhages, exudates, and vessel irregularities — with a plain-language explanation, not just a score.</p>
+    </div>
+  </section>
+
+  <section class="auth-panel">
+    <div class="auth-card">
+      <h2>Log in</h2>
+      <p class="auth-sub">New here? <a href="{{ url_for('signup') }}">Create an account</a></p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('login') }}">
+        <label>Email or phone</label>
+        <input type="text" name="email" placeholder="you@example.com" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <div class="form-row-between">
+          <label class="checkbox-line">
+            <input type="checkbox" name="remember"> Remember me
+          </label>
+          <a href="#" class="link-muted">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Log in</button>
+      </form>
+
+      <p class="disclaimer">RetinaScan is a screening/decision-support tool and does not replace professional medical evaluation.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

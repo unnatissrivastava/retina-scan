@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Settings — RetinaScan{% endblock %}
+{% block page_title %}Settings{% endblock %}
+
+{% block content %}
+<div class="settings-section">
+  <h3>Change password</h3>
+  <form method="POST" action="{{ url_for('settings') }}" class="profile-form">
+    <label>Current password</label>
+    <input type="password" name="current_password" required>
+
+    <label>New password</label>
+    <input type="password" name="new_password" required>
+
+    <button type="submit" class="btn btn-primary">Update password</button>
+  </form>
+</div>
+
+<div class="settings-section">
+  <h3>Notification preferences</h3>
+  <label class="switch-row">
+    <span>Email me when a new report is ready</span>
+    <input type="checkbox" checked>
+  </label>
+  <label class="switch-row">
+    <span>Remind me for annual eye checkups</span>
+    <input type="checkbox" checked>
+  </label>
+</div>
+
+<div class="settings-section">
+  <h3>Privacy</h3>
+  <p>Your scan images and reports are only visible to your account. RetinaScan does not share your data with third parties.</p>
+</div>
+
+<div class="settings-section danger-zone">
+  <h3>Account</h3>
+  <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout of RetinaScan</a>
+</div>
+{% endblock %}

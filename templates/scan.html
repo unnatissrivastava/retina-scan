@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block title %}Scan Eye — RetinaScan{% endblock %}
+{% block page_title %}New Retinal Screening{% endblock %}
+
+{% block content %}
+
+<div class="scan-steps">
+    <span class="step-item active" data-step="1">01 Upload</span>
+    <span class="step-divider"></span>
+    <span class="step-item" data-step="2">02 Preview</span>
+    <span class="step-divider"></span>
+    <span class="step-item" data-step="3">03 Result</span>
+</div>
+
+
+<!-- =========================
+     UPLOAD STAGE
+========================= -->
+
+<div class="scan-panel" id="uploadStage">
+
+    <div class="dropzone" id="dropzone">
+
+        <!-- Safe eye icon - NOT iris-ring -->
+        <div class="scan-eye-icon">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="32" cy="32" r="25"></circle>
+                <circle cx="32" cy="32" r="16"></circle>
+                <circle cx="32" cy="32" r="8"></circle>
+                <circle cx="32" cy="32" r="3"></circle>
+            </svg>
+        </div>
+
+        <h3>Upload a retinal image</h3>
+
+        <p>
+            <strong>Drag &amp; drop</strong> your fundus image here
+            <br>
+            or choose a file from your device.
+        </p>
+
+        <label class="btn btn-primary" for="fileInput">
+            Choose image
+        </label>
+
+        <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            hidden
+        >
+
+        <p class="hint">
+            JPG or PNG · Clear, centered fundus photograph recommended
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PREVIEW STAGE
+========================= -->
+
+<div class="scan-panel hidden" id="previewStage">
+
+    <div class="preview-grid">
+
+        <div class="preview-image-wrap">
+            <img
+                id="previewImage"
+                src=""
+                alt="Retinal scan preview"
+            >
+        </div>
+
+        <div class="preview-side">
+
+            <span class="eyebrow">IMAGE READY</span>
+
+            <h3>Ready to analyze</h3>
+
+            <p>
+                Confirm that this is the retinal image you want
+                RetinaScan to screen.
+            </p>
+
+            <button
+                class="btn btn-primary btn-full"
+                id="analyzeBtn"
+                type="button"
+            >
+                Analyze retina
+            </button>
+
+            <button
+                class="btn btn-ghost btn-full"
+                id="retakeBtn"
+                type="button"
+            >
+                Choose a different image
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     LOADING STAGE
+========================= -->
+
+<div class="scan-panel hidden" id="loadingStage">
+
+    <div class="loading-block">
+
+        <div class="spinner"></div>
+
+        <h3>Analyzing retinal image</h3>
+
+        <p>
+            Examining retinal patterns and generating your screening result…
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     RESULT STAGE
+========================= -->
+
+<div class="scan-panel hidden" id="resultStage">
+
+    <div class="result-grid">
+
+        <div class="preview-image-wrap">
+            <img
+                id="resultImage"
+                src=""
+                alt="Analyzed retinal scan"
+            >
+        </div>
+
+        <div class="result-side">
+
+            <span class="badge" id="resultBadge"></span>
+
+            <h3 id="resultTitle"></h3>
+
+            <div class="confidence-bar">
+                <div
+                    class="confidence-fill"
+                    id="confidenceFill"
+                ></div>
+            </div>
+
+            <span
+                class="confidence-label"
+                id="confidenceLabel"
+            ></span>
+
+            <p id="resultExplanation"></p>
+
+            <p
+                class="risk-note"
+                id="riskNote"
+            ></p>
+
+            <div class="result-actions">
+
+                <a
+                    class="btn btn-primary"
+                    id="viewReportBtn"
+                    href="#"
+                >
+                    View full report
+                </a>
+
+                <button
+                    class="btn btn-ghost"
+                    id="scanAgainBtn"
+                    type="button"
+                >
+                    Scan another
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/scan.js') }}"></script>
+{% endblock %}
+/* =========================================================
+   RETINAL SCAN UPLOAD UI
+   ========================================================= */
+
+.scan-panel {
+    width: 100%;
+}
+
+#uploadStage {
+    min-height: 500px;
+}
+
+#uploadStage .dropzone {
+    min-height: 430px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 50px 30px;
+
+    border: 2px dashed #c9e0eb;
+    border-radius: 18px;
+
+    background: #fbfdfe;
+}
+
+/* IMPORTANT:
+   Do NOT use .iris-ring here.
+*/
+
+.scan-eye-icon {
+    width: 92px;
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eaf6fa;
+    border: 1px solid #d4eaf1;
+
+    margin-bottom: 4px;
+}
+
+.scan-eye-icon svg {
+    width: 58px;
+    height: 58px;
+
+    fill: none;
+    stroke: #147fa5;
+    stroke-width: 2;
+}
+
+.scan-eye-icon svg circle:last-child {
+    fill: #147fa5;
+    stroke: none;
+}
+
+#uploadStage .dropzone h3 {
+    margin: 0;
+
+    color: #123e58;
+
+    font-family: var(--font-head);
+    font-size: 1.25rem;
+}
+
+#uploadStage .dropzone p {
+    margin: 0;
+
+    color: #71899a;
+
+    text-align: center;
+    line-height: 1.6;
+}
+
+#uploadStage .dropzone p strong {
+    color: #174b68;
+}
+
+#uploadStage .dropzone .btn {
+    margin-top: 5px;
+}
+
+#uploadStage .dropzone .hint {
+    font-size: 0.8rem;
+    color: #8aa0ae;
+}
+
+
+/* Step indicator */
+
+.scan-steps {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.step-item {
+    font-size: 0.84rem;
+    color: #91a5b3;
+    font-weight: 500;
+}
+
+.step-item.active {
+    color: #1484ae;
+    font-weight: 700;
+}
+
+.step-divider {
+    width: 34px;
+    height: 1px;
+    background: #d6e3e9;
+}
+
+
+/* Small label */
+
+.eyebrow {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #1484ae;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+
+/* Loading */
+
+.loading-block {
+    text-align: center;
+    padding: 70px 30px;
+}
+
+.loading-block h3 {
+    margin: 0 0 8px;
+}
+
+.loading-block p {
+    color: #71899a;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    #uploadStage {
+        min-height: 420px;
+    }
+
+    #uploadStage .dropzone {
+        min-height: 350px;
+        padding: 35px 20px;
+    }
+
+    .preview-grid,
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+}

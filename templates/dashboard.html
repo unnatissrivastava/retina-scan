@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — RetinaScan{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="greeting">
+    <h2>
+        Good to see you, {{ current_user.name.split(' ')[0] }}
+    </h2>
+
+    <p>
+        Here's an overview of your retinal screening activity.
+    </p>
+</div>
+
+
+<!-- STATS -->
+
+<div class="stat-row">
+
+    <div class="stat-card">
+        <span class="stat-label">
+            Total screenings
+        </span>
+
+        <span class="stat-value">
+            {{ stats.total_scans }}
+        </span>
+
+        <span class="stat-label">
+            Retinal images analyzed
+        </span>
+    </div>
+
+
+    <div class="stat-card">
+        <span class="stat-label">
+            Reports generated
+        </span>
+
+        <span class="stat-value">
+            {{ stats.total_reports }}
+        </span>
+
+        <span class="stat-label">
+            Available in medical history
+        </span>
+    </div>
+
+
+    <div class="stat-card accent">
+        <span class="stat-label">
+            Next step
+        </span>
+
+        <span class="stat-value-sm">
+            Continue your retinal screening
+        </span>
+
+        <a
+            href="{{ url_for('scan') }}"
+            class="link-muted"
+        >
+            Start a new screening →
+        </a>
+    </div>
+
+</div>
+
+
+<!-- NEW SCREENING -->
+
+<div class="upload-panel">
+
+    <div class="upload-copy">
+
+        <h3>
+            Start a new retinal screening
+        </h3>
+
+        <p>
+            Upload a clear fundus photograph and RetinaScan will
+            analyze retinal patterns associated with potential
+            abnormalities.
+        </p>
+
+        <a
+            href="{{ url_for('scan') }}"
+            class="btn btn-primary"
+        >
+            Upload retinal image
+        </a>
+
+    </div>
+
+
+    <div class="upload-visual">
+        <div class="iris-ring small"></div>
+    </div>
+
+</div>
+
+
+<!-- RECENT RESULTS -->
+
+<div class="section-header">
+
+    <h3>
+        Recent screening results
+    </h3>
+
+    <a
+        href="{{ url_for('history') }}"
+        class="link-muted"
+    >
+        View all
+    </a>
+
+</div>
+
+
+<div class="results-list">
+
+    {% if stats.recent %}
+
+        {% for scan in stats.recent %}
+
+        <a
+            href="{{ url_for('report', scan_id=scan['id']) }}"
+            class="result-row"
+        >
+
+            <span
+                class="status-dot status-{{ 'normal' if scan['status'] == 'Normal' else 'review' }}"
+            ></span>
+
+
+            <span class="result-name">
+                {{ scan['result'] }}
+            </span>
+
+
+            <span class="result-date">
+                {{ scan['scan_date'][:10] }}
+            </span>
+
+
+            <span
+                class="badge badge-{{ 'normal' if scan['status'] == 'Normal' else 'review' }}"
+            >
+                {{ scan['status'] }}
+            </span>
+
+        </a>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <p>
+                No screenings yet.
+                Upload your first retinal image to begin.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
