@@ -216,3 +216,23 @@ RetinaScan/
 ├── retina_scan.db
 ├── requirements.txt
 ├── README.md
+│
+├── templates/
+│   ├── index.html
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── upload.html
+│   ├── result.html
+│   ├── history.html
+│   └── ...
+│
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   │
+│   ├── js/
+│   │   └── script.js
+│   │
+│   └── uploads/
+│
+└── ...
