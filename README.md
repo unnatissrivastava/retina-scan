@@ -78,3 +78,16 @@ along with an associated confidence score.
 ### Backend
 - Python
 - Flask
+### Image Processing
+- Pillow
+- NumPy
+
+### Database
+- SQLite
+
+### Development Tools
+- Visual Studio Code
+- Git
+- GitHub
+
+---
