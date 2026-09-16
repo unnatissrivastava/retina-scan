@@ -57,3 +57,24 @@ The analysis considers retinal image characteristics such as:
 - Abnormal spot patterns
 - Retinal region characteristics
 - Overall image intensity and distribution
+These features contribute to the final screening score.
+
+The system can classify an image into categories such as:
+
+- **Healthy**
+- **DR Detected**
+
+along with an associated confidence score.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+- Python
+- Flask
