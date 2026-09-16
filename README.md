@@ -48,3 +48,12 @@ The goal is to make retinal screening **simple, explainable, and accessible**.
 ---
 
 ## 🧠 Explainable AI
+Unlike a completely black-box prediction system, RetinaScan AI focuses on making the screening process understandable.
+
+The analysis considers retinal image characteristics such as:
+
+- Dark retinal lesions
+- Bright yellow/white regions
+- Abnormal spot patterns
+- Retinal region characteristics
+- Overall image intensity and distribution
