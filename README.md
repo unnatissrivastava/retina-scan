@@ -1,4 +1,4 @@
-# RetinaScan AI 
+# RetinaScan AI 👁️
 ### Early Sight, Lasting Sight
 RetinaScan AI is an explainable, AI-powered retinal screening system designed to assist in the early detection of **Diabetic Retinopathy (DR)** from fundus retinal images.
 
