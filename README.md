@@ -30,3 +30,8 @@ Early-stage DR can often show subtle changes in the retina before severe vision 
 RetinaScan AI aims to provide an accessible first-level screening system that can help identify retinal images that may require further medical evaluation.
 
 ---
+## 💡 Our Solution
+
+RetinaScan AI allows a user to upload a retinal fundus image.
+
+The system then:
