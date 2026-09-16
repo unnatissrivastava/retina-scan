@@ -35,3 +35,16 @@ RetinaScan AI aims to provide an accessible first-level screening system that ca
 RetinaScan AI allows a user to upload a retinal fundus image.
 
 The system then:
+1. Accepts the retinal image.
+2. Preprocesses the image.
+3. Analyzes retinal regions and abnormal visual patterns.
+4. Calculates a screening score.
+5. Generates a result.
+6. Displays the confidence level.
+7. Stores the screening report for future reference.
+
+The goal is to make retinal screening **simple, explainable, and accessible**.
+
+---
+
+## 🧠 Explainable AI
