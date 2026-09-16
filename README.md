@@ -91,3 +91,12 @@ along with an associated confidence score.
 - GitHub
 
 ---
+## 📂 Project Structure
+
+```text
+RetinaScan/
+│
+├── app.py
+├── retina_scan.db
+├── requirements.txt
+├── README.md
