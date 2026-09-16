@@ -21,3 +21,12 @@ The system analyzes retinal images, identifies potential abnormal patterns, and 
 - 📱 Designed with accessibility and rural healthcare use cases in mind
 
 ---
+## 🎯 Problem Statement
+
+Diabetic Retinopathy is one of the major causes of preventable vision loss.
+
+Early-stage DR can often show subtle changes in the retina before severe vision problems occur. However, access to ophthalmologists and specialized retinal screening facilities can be limited, particularly in rural and underserved areas.
+
+RetinaScan AI aims to provide an accessible first-level screening system that can help identify retinal images that may require further medical evaluation.
+
+---
